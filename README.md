@@ -6,7 +6,7 @@ Controls at the start of the project:
 
 * Movement: Up, Down, 
 
-![Photo!](/img/pybadge_photo.jpeg)
+![Photo!](/img/pybadge-adventure_photo.jpeg)
 
 ## Enhancements intended
 
