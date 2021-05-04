@@ -2,15 +2,15 @@
 
 A necessarily simple adventure game program created for the [Adafruit PyBadge computer](https://www.adafruit.com/product/4200).
 
-Controls at the start of the project:
+## Controls at the start of the project
 
-* Movement: Up, Down, 
+* Movement: N = up button, E = left, S = down, W = right.
 
 ![Photo!](/img/pybadge-adventure_photo.jpeg)
 
 ## Enhancements intended
 
-* Basic combat.
+* Basic combat, potentially using a combination of the Select and Start buttons.
 
 ## What is an Adafruit PyBadge?
 
