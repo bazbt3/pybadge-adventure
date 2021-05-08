@@ -6,7 +6,7 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
         noexit()
     }
     mySprite.setImage(assets.image`up`)
-    mySprite.say("North")
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("W")) {
@@ -16,15 +16,13 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         noexit()
     }
     mySprite.setImage(assets.image`left`)
-    mySprite.say("West")
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 function showstate () {
     if (x == 0 && y == 2) {
-        successtext = " *** WELL DONE, you have completed the Adventure! ***"
-    } else {
-        successtext = ""
+        successtext = "completed"
     }
-    game.showLongText("You can go " + roomdirections[y][x] + ", there is a " + objects[randint(0, objectsnumber - 1)] + " here. Your coordinates are: " + ("" + convertToText(x) + "," + convertToText(y) + ".") + successtext + "", DialogLayout.Full)
+    game.splash("There is a " + objects[randint(0, objectsnumber - 1)])
     if (successtext != "") {
         music.magicWand.play()
         game.over(true, effects.confetti)
@@ -38,7 +36,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         noexit()
     }
     mySprite.setImage(assets.image`right`)
-    mySprite.say("East")
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("S")) {
@@ -48,11 +46,11 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         noexit()
     }
     mySprite.setImage(assets.image`down`)
-    mySprite.say("South")
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 function noexit () {
     music.buzzer.play()
-    game.showLongText("There is no exit that way. You can go only in direction(s) from: " + roomdirections[y][x] + "." + " Press button A.", DialogLayout.Center)
+    game.splash("No exit that way.", "You can go " + roomdirections[y][x])
 }
 function boundarycheck () {
     if (x == -1) {
