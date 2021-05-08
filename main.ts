@@ -5,6 +5,8 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`up`)
+    mySprite.say("North")
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("W")) {
@@ -13,6 +15,8 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`left`)
+    mySprite.say("West")
 })
 function showstate () {
     if (x == 0 && y == 2) {
@@ -33,6 +37,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`right`)
+    mySprite.say("East")
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("S")) {
@@ -41,6 +47,8 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`down`)
+    mySprite.say("South")
 })
 function noexit () {
     music.buzzer.play()
@@ -58,6 +66,7 @@ function boundarycheck () {
     }
     showstate()
 }
+let mySprite: Sprite = null
 let successtext = ""
 let y = 0
 let x = 0
@@ -77,4 +86,8 @@ roomdirections = [["S", "ES", "SW"], ["NE", "NW", "NS"], ["E", "EW", "NW"]]
 x = 0
 y = 0
 successtext = ""
-game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button. Your coordinates are " + convertToText(x) + "," + convertToText(y) + " and you can go in direction(s) from: " + roomdirections[y][x] + ".", DialogLayout.Center)
+game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button.", DialogLayout.Center)
+mySprite = sprites.create(assets.image`static`, SpriteKind.Player)
+mySprite.setStayInScreen(true)
+mySprite.setPosition(scene.screenWidth() / 2 - 40, scene.screenHeight() - 10)
+mySprite.say("You can go " + roomdirections[y][x])
