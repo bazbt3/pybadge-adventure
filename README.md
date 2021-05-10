@@ -1,11 +1,11 @@
  # What is this?
 
-A necessarily simple adventure game program created for the [Adafruit PyBadge computer](https://www.adafruit.com/product/4200).  A playable version can be found at [https://bazbt3.github.io/pybadge-adventure/](https://bazbt3.github.io/pybadge-adventure/)
+A necessarily simple adventure game program created for the [Adafruit PyBadge computer](https://www.adafruit.com/product/4200).  An early 'playable' version can be found at [https://bazbt3.github.io/pybadge-adventure/](https://bazbt3.github.io/pybadge-adventure/).  (Note that the pages generated in my micro:bit repos linked to the githu.io page not the game.)
 
 ## Controls at the start of the project
 
 * Advancing between moves: button A.
-* Movement: N = up button, E = left, S = down, W = right.
+* Movement: N = up button, E = right, S = down, W = left.
 
 ![Photo!](/img/pybadge-adventure_photo.jpeg)
 
