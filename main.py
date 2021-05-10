@@ -4,8 +4,11 @@ def on_up_pressed():
         y = y - 1
         boundarycheck()
     else:
-        music.buzzer.play()
         noexit()
+    mySprite.set_image(assets.image("""
+        up
+    """))
+    mySprite.say("You can go " + roomdirections[y][x])
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
 def on_left_pressed():
@@ -14,20 +17,24 @@ def on_left_pressed():
         x = x - 1
         boundarycheck()
     else:
-        music.buzzer.play()
         noexit()
+    mySprite.set_image(assets.image("""
+        left
+    """))
+    mySprite.say("You can go " + roomdirections[y][x])
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
 
 def showstate():
     global successtext
     if x == 0 and y == 2:
-        successtext = " *** WELL DONE, you have completed the Adventure! ***"
-    else:
-        successtext = ""
-    game.show_long_text("You can go " + roomdirections[y][x] + ", there is a " + objects[randint(0, objectsnumber - 1)] + " here. Your coordinates are: " + ("" + convert_to_text(x) + "," + convert_to_text(y) + ".") + successtext + "",
-        DialogLayout.FULL)
+        successtext = "completed"
+    game.splash("There is " + roomcontents[y][x])
     if successtext != "":
         music.magic_wand.play()
+        mySprite.set_image(assets.image("""
+            smiley
+        """))
+        pause(2000)
         game.over(True, effects.confetti)
 
 def on_right_pressed():
@@ -36,8 +43,11 @@ def on_right_pressed():
         x = x + 1
         boundarycheck()
     else:
-        music.buzzer.play()
         noexit()
+    mySprite.set_image(assets.image("""
+        right
+    """))
+    mySprite.say("You can go " + roomdirections[y][x])
 controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
 
 def on_down_pressed():
@@ -46,14 +56,16 @@ def on_down_pressed():
         y = y + 1
         boundarycheck()
     else:
-        music.buzzer.play()
         noexit()
+    mySprite.set_image(assets.image("""
+        down
+    """))
+    mySprite.say("You can go " + roomdirections[y][x])
 controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
 
 def noexit():
     music.buzzer.play()
-    game.show_long_text("There is no exit that way. You can go only in direction(s) from: " + roomdirections[y][x] + "." + " Press button A.",
-        DialogLayout.CENTER)
+    game.splash("No exit that way.", "You can go " + roomdirections[y][x])
 def boundarycheck():
     global x, y
     if x == -1:
@@ -65,17 +77,28 @@ def boundarycheck():
     elif y == 3:
         y = 2
     showstate()
+mySprite: Sprite = None
 successtext = ""
 y = 0
 x = 0
+roomcontents: List[List[str]] = []
 roomdirections: List[List[str]] = []
-objectsnumber = 0
-objects: List[str] = []
-objects = ["cat", "dog", "rabbit", "human", "grue", "barren room"]
-objectsnumber = len(objects)
 roomdirections = [["S", "ES", "SW"], ["NE", "NW", "NS"], ["E", "EW", "NW"]]
+roomcontents = [["an empty room here.",
+        "another empty room.",
+        "nothing here."],
+    ["a cat here.", "a dog here.", "a rabbit here."],
+    ["an end to this, your final objective!",
+        "a grue!",
+        "an empty room."]]
 x = 0
 y = 0
 successtext = ""
-game.show_long_text("ADVENTURE!    " + "To move, press button A then a direction button. Your coordinates are " + convert_to_text(x) + "," + convert_to_text(y) + " and you can go in direction(s) from: " + roomdirections[y][x] + ".",
+game.show_long_text("ADVENTURE!    " + "To move, press button A then a direction button.     " + ("There is " + roomcontents[y][x]),
     DialogLayout.CENTER)
+mySprite = sprites.create(assets.image("""
+    static
+"""), SpriteKind.player)
+mySprite.set_stay_in_screen(True)
+mySprite.set_position(scene.screen_width() / 2 - 40, scene.screen_height() - 10)
+mySprite.say("You can go " + roomdirections[y][x])
