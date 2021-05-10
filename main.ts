@@ -22,9 +22,11 @@ function showstate () {
     if (x == 0 && y == 2) {
         successtext = "completed"
     }
-    game.splash("There is a " + objects[randint(0, objectsnumber - 1)])
+    game.splash("There is " + roomcontents[y][x])
     if (successtext != "") {
         music.magicWand.play()
+        mySprite.setImage(assets.image`smiley`)
+        pause(2000)
         game.over(true, effects.confetti)
     }
 }
@@ -68,23 +70,14 @@ let mySprite: Sprite = null
 let successtext = ""
 let y = 0
 let x = 0
+let roomcontents: string[][] = []
 let roomdirections: string[][] = []
-let objectsnumber = 0
-let objects: string[] = []
-objects = [
-"cat",
-"dog",
-"rabbit",
-"human",
-"grue",
-"barren room"
-]
-objectsnumber = objects.length
 roomdirections = [["S", "ES", "SW"], ["NE", "NW", "NS"], ["E", "EW", "NW"]]
+roomcontents = [["an empty room here.", "another empty room.", "nothing here."], ["a cat here.", "a dog here.", "a rabbit here."], ["an end to this, your final objective!", "a grue!", "an empty room."]]
 x = 0
 y = 0
 successtext = ""
-game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button.", DialogLayout.Center)
+game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button.     " + ("There is " + roomcontents[y][x]), DialogLayout.Center)
 mySprite = sprites.create(assets.image`static`, SpriteKind.Player)
 mySprite.setStayInScreen(true)
 mySprite.setPosition(scene.screenWidth() / 2 - 40, scene.screenHeight() - 10)

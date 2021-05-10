@@ -24,6 +24,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "right"
     },
+    "image6": {
+        "data": "hwQQABAAAAAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQEQAAAQAAAAABAAAQAAAAAAEAARAAAAAAAAAAAAEAAAAAAAAAAQAAAAEAARAAAAAAAQAAEAAAABARAAABAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "smiley"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
