@@ -5,6 +5,8 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`up`)
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("W")) {
@@ -13,16 +15,18 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`left`)
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 function showstate () {
     if (x == 0 && y == 2) {
-        successtext = " *** WELL DONE, you have completed the Adventure! ***"
-    } else {
-        successtext = ""
+        successtext = "completed"
     }
-    game.showLongText("You can go " + roomdirections[y][x] + ", there is a " + objects[randint(0, objectsnumber - 1)] + " here. Your coordinates are: " + ("" + convertToText(x) + "," + convertToText(y) + ".") + successtext + "", DialogLayout.Full)
+    game.splash("There is " + roomcontents[y][x])
     if (successtext != "") {
         music.magicWand.play()
+        mySprite.setImage(assets.image`smiley`)
+        pause(2000)
         game.over(true, effects.confetti)
     }
 }
@@ -33,6 +37,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`right`)
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (roomdirections[y][x].includes("S")) {
@@ -41,10 +47,12 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
         noexit()
     }
+    mySprite.setImage(assets.image`down`)
+    mySprite.say("You can go " + roomdirections[y][x])
 })
 function noexit () {
     music.buzzer.play()
-    game.showLongText("There is no exit that way. You can go only in direction(s) from: " + roomdirections[y][x] + "." + " Press button A.", DialogLayout.Center)
+    game.splash("No exit that way.", "You can go " + roomdirections[y][x])
 }
 function boundarycheck () {
     if (x == -1) {
@@ -58,23 +66,19 @@ function boundarycheck () {
     }
     showstate()
 }
+let mySprite: Sprite = null
 let successtext = ""
 let y = 0
 let x = 0
+let roomcontents: string[][] = []
 let roomdirections: string[][] = []
-let objectsnumber = 0
-let objects: string[] = []
-objects = [
-"cat",
-"dog",
-"rabbit",
-"human",
-"grue",
-"barren room"
-]
-objectsnumber = objects.length
 roomdirections = [["S", "ES", "SW"], ["NE", "NW", "NS"], ["E", "EW", "NW"]]
+roomcontents = [["an empty room here.", "another empty room.", "nothing here."], ["a cat here.", "a dog here.", "a rabbit here."], ["an end to this, your final objective!", "a grue!", "an empty room."]]
 x = 0
 y = 0
 successtext = ""
-game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button. Your coordinates are " + convertToText(x) + "," + convertToText(y) + " and you can go in direction(s) from: " + roomdirections[y][x] + ".", DialogLayout.Center)
+game.showLongText("ADVENTURE!    " + "To move, press button A then a direction button.     " + ("There is " + roomcontents[y][x]), DialogLayout.Center)
+mySprite = sprites.create(assets.image`static`, SpriteKind.Player)
+mySprite.setStayInScreen(true)
+mySprite.setPosition(scene.screenWidth() / 2 - 40, scene.screenHeight() - 10)
+mySprite.say("You can go " + roomdirections[y][x])
